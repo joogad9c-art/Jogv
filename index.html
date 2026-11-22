@@ -1,0 +1,1567 @@
+html_content = r"""<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unit 3 Ultra Pro - منصة اختبار الكلمات الاحترافية</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+
+  :root {
+    --bg-body: #f1f5f9;
+    --bg-grad-a: #e0e7ff;
+    --bg-grad-b: #fce7f3;
+    --surface: #ffffff;
+    --surface-soft: #f8fafc;
+    --border: #e2e8f0;
+    --text-main: #0f172a;
+    --text-sub: #475569;
+    --primary: #4f46e5;
+    --primary-light: #eef2ff;
+    --accent: #db2777;
+    --success: #10b981;
+    --success-bg: #ecfdf5;
+    --danger: #ef4444;
+    --danger-bg: #fef2f2;
+    --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05);
+    --shadow-md: 0 12px 30px rgba(15, 23, 42, 0.08);
+    --radius-lg: 22px;
+    --radius-md: 14px;
+    --font-scale: 1;
+  }
+
+  [data-theme="midnight"] {
+    --bg-body: #0b1120;
+    --bg-grad-a: #1e1b4b;
+    --bg-grad-b: #311042;
+    --surface: #111827;
+    --surface-soft: #1f2937;
+    --border: #374151;
+    --text-main: #f9fafb;
+    --text-sub: #9ca3af;
+    --primary: #818cf8;
+    --primary-light: rgba(129, 140, 248, 0.14);
+    --accent: #f472b6;
+    --success: #34d399;
+    --success-bg: rgba(16, 185, 129, 0.14);
+    --danger: #f87171;
+    --danger-bg: rgba(239, 68, 68, 0.14);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 14px 34px rgba(0, 0, 0, 0.45);
+  }
+
+  [data-theme="ocean"] {
+    --bg-body: #f0f9ff;
+    --bg-grad-a: #bae6fd;
+    --bg-grad-b: #ccfbf1;
+    --primary: #0284c7;
+    --primary-light: #e0f2fe;
+    --accent: #0d9488;
+  }
+
+  [data-theme="emerald"] {
+    --bg-body: #ecfdf5;
+    --bg-grad-a: #a7f3d0;
+    --bg-grad-b: #fef3c7;
+    --primary: #059669;
+    --primary-light: #d1fae5;
+    --accent: #d97706;
+  }
+
+  * {
+    box-sizing: border-box;
+    font-family: 'Cairo', Tahoma, sans-serif;
+  }
+
+  body {
+    margin: 0;
+    padding: 0 0 90px;
+    background: var(--bg-body);
+    background-image: radial-gradient(circle at 10% 10%, var(--bg-grad-a) 0%, transparent 45%),
+                      radial-gradient(circle at 90% 20%, var(--bg-grad-b) 0%, transparent 45%);
+    background-attachment: fixed;
+    color: var(--text-main);
+    font-size: calc(16px * var(--font-scale));
+    min-height: 100vh;
+  }
+
+  #confettiCanvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  .topbar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .topbar-inner {
+    max-width: 1050px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand-logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4em;
+    font-weight: 900;
+    box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+  }
+
+  .brand-text h1 {
+    margin: 0;
+    font-size: 1.25em;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  .brand-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    color: #fff;
+    font-size: 0.65em;
+    padding: 2px 8px;
+    border-radius: 6px;
+    vertical-align: middle;
+    margin-right: 4px;
+  }
+
+  .brand-text span {
+    font-size: 0.8em;
+    color: var(--text-sub);
+    font-weight: 600;
+  }
+
+  .nav-tabs {
+    display: flex;
+    background: var(--surface-soft);
+    padding: 5px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    gap: 4px;
+  }
+
+  .nav-tab {
+    border: none;
+    background: transparent;
+    color: var(--text-sub);
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 0.92em;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+  }
+
+  .nav-tab:hover {
+    color: var(--primary);
+  }
+
+  .nav-tab.active {
+    background: var(--surface);
+    color: var(--primary);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .wrapper {
+    max-width: 1050px;
+    margin: 24px auto 0;
+    padding: 0 16px;
+  }
+
+  .view-section {
+    display: none;
+    animation: fadeIn 0.25s ease;
+  }
+
+  .view-section.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .status-strip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .progress-area {
+    flex: 1 1 260px;
+  }
+
+  .progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85em;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: var(--text-sub);
+  }
+
+  .progress-bar {
+    height: 10px;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    border-radius: 999px;
+    transition: width 0.3s ease;
+  }
+
+  .status-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .stat-chip {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    padding: 7px 14px;
+    border-radius: 12px;
+    font-size: 0.88em;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn {
+    border: none;
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-size: 0.92em;
+    font-weight: 800;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    transition: all 0.2s;
+  }
+
+  .btn:active { transform: scale(0.97); }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(79, 70, 229, 0.25);
+  }
+  .btn-primary:hover { filter: brightness(1.07); }
+
+  .btn-soft {
+    background: var(--primary-light);
+    color: var(--primary);
+    border: 1px solid transparent;
+  }
+  .btn-soft:hover { border-color: var(--primary); }
+
+  .btn-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: #fff;
+    font-size: 1.1em;
+    padding: 14px 36px;
+    box-shadow: 0 8px 22px rgba(16, 185, 129, 0.3);
+  }
+
+  .btn-warning {
+    background: #f59e0b;
+    color: #fff;
+    font-size: 1.05em;
+    padding: 14px 26px;
+  }
+
+  .guide-banner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-right: 5px solid var(--primary);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+    color: var(--text-sub);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .guide-banner code {
+    background: var(--primary-light);
+    color: var(--primary);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-family: monospace;
+    font-weight: 800;
+    direction: ltr;
+    display: inline-block;
+  }
+
+  .quiz-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .quiz-grid.two-cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
+    gap: 16px;
+  }
+
+  .q-card {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px 20px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .q-card:focus-within {
+    border-color: var(--primary);
+  }
+
+  .q-card.is-correct {
+    background: var(--success-bg);
+    border-color: var(--success);
+  }
+
+  .q-card.is-wrong {
+    background: var(--danger-bg);
+    border-color: var(--danger);
+  }
+
+  .q-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .q-badges {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .badge-num {
+    background: var(--primary);
+    color: #fff;
+    font-weight: 900;
+    font-size: 0.8em;
+    padding: 2px 10px;
+    border-radius: 8px;
+  }
+
+  .badge-meta {
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    color: var(--text-sub);
+    font-weight: 700;
+    font-size: 0.78em;
+    padding: 2px 9px;
+    border-radius: 8px;
+  }
+
+  .badge-req {
+    background: #fef3c7;
+    color: #92400e;
+    font-weight: 800;
+    font-size: 0.78em;
+    padding: 3px 10px;
+    border-radius: 999px;
+  }
+
+  .q-arabic {
+    font-size: 1.22em;
+    font-weight: 900;
+    color: var(--text-main);
+  }
+
+  .q-input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .q-input {
+    flex: 1;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    background: var(--surface-soft);
+    color: var(--text-main);
+    font-size: 1.05em;
+    font-weight: 700;
+    direction: ltr;
+    text-align: left;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .q-input:focus {
+    background: var(--surface);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--primary-light);
+  }
+
+  .tool-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: 1.5px solid var(--border);
+    background: var(--surface-soft);
+    color: var(--text-main);
+    font-size: 1.15em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .tool-icon:hover {
+    border-color: var(--primary);
+    background: var(--primary-light);
+  }
+
+  .q-hint {
+    font-size: 0.85em;
+    font-weight: 800;
+    color: #d97706;
+    direction: ltr;
+    text-align: left;
+    display: none;
+  }
+  .q-hint.visible { display: block; }
+
+  .q-result {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+    font-size: 0.92em;
+    font-weight: 800;
+  }
+  .q-result.visible { display: flex; }
+  .q-result.ok { color: var(--success); }
+  .q-result.err { color: var(--danger); }
+
+  .ans-pill {
+    direction: ltr;
+    display: inline-block;
+    background: var(--surface);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 800;
+  }
+
+  .focus-box {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 26px;
+    padding: 30px 24px;
+    box-shadow: var(--shadow-md);
+    max-width: 650px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .focus-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+    gap: 10px;
+  }
+
+  .settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 18px;
+  }
+
+  .set-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .set-card h3 {
+    margin: 0 0 14px;
+    font-size: 1.05em;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .theme-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .theme-option {
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 10px;
+    background: var(--surface-soft);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+    font-size: 0.88em;
+    color: var(--text-main);
+    transition: all 0.2s;
+  }
+
+  .theme-option.active {
+    border-color: var(--primary);
+    background: var(--primary-light);
+    color: var(--primary);
+  }
+
+  .swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .check-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface-soft);
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.9em;
+  }
+
+  .check-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary);
+    cursor: pointer;
+  }
+
+  .slider-block {
+    margin-bottom: 14px;
+  }
+  .slider-block:last-child { margin-bottom: 0; }
+  .slider-head {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 800;
+    font-size: 0.9em;
+    margin-bottom: 6px;
+  }
+  input[type="range"] {
+    width: 100%;
+    accent-color: var(--primary);
+    cursor: pointer;
+  }
+
+  .seg-buttons {
+    display: flex;
+    gap: 8px;
+  }
+
+  .seg-btn {
+    flex: 1;
+    padding: 9px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background: var(--surface-soft);
+    color: var(--text-main);
+    font-weight: 800;
+    font-size: 0.85em;
+    cursor: pointer;
+  }
+
+  .seg-btn.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+  }
+
+  .dict-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .search-box {
+    flex: 1 1 260px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    color: var(--text-main);
+    font-size: 1em;
+    font-weight: 700;
+    outline: none;
+  }
+
+  .search-box:focus { border-color: var(--primary); }
+
+  .dict-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 12px;
+  }
+
+  .dict-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 8px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .dict-eng-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    direction: ltr;
+    font-family: 'Segoe UI', sans-serif;
+    font-weight: 800;
+    color: var(--primary);
+    font-size: 1.02em;
+    padding-top: 6px;
+    border-top: 1px dashed var(--border);
+  }
+
+  .footer-actions {
+    margin-top: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .result-panel {
+    display: none;
+    margin-top: 24px;
+    background: var(--surface);
+    border: 2px solid var(--primary);
+    border-radius: 24px;
+    padding: 28px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+  }
+  .result-panel.visible { display: block; }
+
+  .score-circle {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: #fff;
+    font-size: 1.75em;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.3);
+  }
+
+  @media (max-width: 650px) {
+    .quiz-grid.two-cols { grid-template-columns: 1fr; }
+    .topbar-inner { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="confettiCanvas"></canvas>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-logo">U3</div>
+      <div class="brand-text">
+        <h1>اختبار الوحدة الثالثة <span class="brand-badge">ULTRA PRO</span></h1>
+        <span>تنظيم ذكي • تحكم شامل • تصحيح تلقائي</span>
+      </div>
+    </div>
+
+    <nav class="nav-tabs">
+      <button class="nav-tab active" id="tab-quiz" onclick="switchTab('quiz')">📝 الاختبار</button>
+      <button class="nav-tab" id="tab-settings" onclick="switchTab('settings')">⚙️ الإعدادات والتخصيص</button>
+      <button class="nav-tab" id="tab-study" onclick="switchTab('study')">📖 القاموس والمراجعة</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrapper">
+
+  <section id="view-quiz" class="view-section active">
+    <div class="status-strip">
+      <div class="progress-area">
+        <div class="progress-labels">
+          <span>مؤشر الإنجاز</span>
+          <span id="progressLabel">0 من 40</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="status-actions">
+        <div class="stat-chip" id="timerBadge" style="display:none;">⏱️ <span id="timerText">00:00</span></div>
+        <div class="stat-chip">🎯 المتاح: <span id="availableCount">0</span></div>
+        <button class="btn btn-primary" onclick="startNewQuiz()">🎲 تغيير الأسئلة</button>
+        <button class="btn btn-soft" onclick="switchTab('settings')">⚙️ تخصيص</button>
+      </div>
+    </div>
+
+    <div class="guide-banner">
+      <div>
+        💡 <strong>طريقة الإجابة:</strong> في أسئلة (الكلمة ومرادفها وعكسها) أو (تصريفات الأفعال) افصل بينهم بـ <code>/</code> مثل: <code>afraid / frightened / brave</code>
+      </div>
+      <div style="font-weight:800; color:var(--primary);">زر 💡 يكشف أول حرف</div>
+    </div>
+
+    <div id="quizContainer" class="quiz-grid"></div>
+
+    <div class="footer-actions" id="quizFooter">
+      <button class="btn btn-success" onclick="submitAllAnswers()">✅ تصحيح الاختبار بالكامل</button>
+      <button class="btn btn-warning" id="btnRetryErrors" style="display:none;" onclick="startErrorOnlyQuiz()">🔁 إعادة اختبار أخطائي فقط</button>
+    </div>
+
+    <div class="result-panel" id="resultPanel">
+      <div class="score-circle" id="finalPct">0%</div>
+      <h2 id="finalHeading" style="margin:0 0 6px;"></h2>
+      <p id="finalDesc" style="margin:0; color:var(--text-sub); font-weight:700;"></p>
+    </div>
+  </section>
+
+  <section id="view-settings" class="view-section">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; flex-wrap:wrap; gap:10px;">
+      <div>
+        <h2 style="margin:0; font-size:1.4em;">⚙️ مركز التحكم والتخصيص الشامل</h2>
+        <p style="margin:2px 0 0; color:var(--text-sub); font-size:0.9em;">كل تعديل بتعمله هنا بيتطبق فورًا على الاختبار وبنحفظه لك تلقائيًا</p>
+      </div>
+      <button class="btn btn-primary" onclick="switchTab('quiz')">↩️ العودة للاختبار</button>
+    </div>
+
+    <div class="settings-grid">
+      <div class="set-card">
+        <h3>🎨 المظهر والألوان</h3>
+        <div class="theme-grid" style="margin-bottom:16px;">
+          <div class="theme-option active" data-t="default" onclick="applyTheme('default', this)">
+            <span class="swatch" style="background:linear-gradient(135deg,#4f46e5,#db2777);"></span> بنفسجي مشرق
+          </div>
+          <div class="theme-option" data-t="midnight" onclick="applyTheme('midnight', this)">
+            <span class="swatch" style="background:linear-gradient(135deg,#0b1120,#818cf8);"></span> ليلي مريح للعين
+          </div>
+          <div class="theme-option" data-t="ocean" onclick="applyTheme('ocean', this)">
+            <span class="swatch" style="background:linear-gradient(135deg,#0284c7,#0d9488);"></span> أزرق سماوي
+          </div>
+          <div class="theme-option" data-t="emerald" onclick="applyTheme('emerald', this)">
+            <span class="swatch" style="background:linear-gradient(135deg,#059669,#d97706);"></span> أخضر زمردي
+          </div>
+        </div>
+
+        <div class="slider-block">
+          <div class="slider-head"><span>حجم الخط في الموقع</span><span id="fontScaleText">100%</span></div>
+          <input type="range" id="fontRange" min="0.85" max="1.25" step="0.05" value="1" oninput="updateFontSize(this.value)">
+        </div>
+      </div>
+
+      <div class="set-card">
+        <h3>🖥️ طريقة عرض الأسئلة</h3>
+        <p style="font-size:0.84em; color:var(--text-sub); margin-top:0;">اختر الشكل المريح ليك أثناء الحل:</p>
+        <div class="seg-buttons" style="margin-bottom:16px;">
+          <button class="seg-btn active" id="mode-list" onclick="setDisplayMode('list')">📋 قائمة عمودية</button>
+          <button class="seg-btn" id="mode-grid" onclick="setDisplayMode('grid')">🗂️ عمودين (شبكة)</button>
+          <button class="seg-btn" id="mode-focus" onclick="setDisplayMode('focus')">🎯 سؤال بسؤال</button>
+        </div>
+
+        <div class="slider-block">
+          <div class="slider-head"><span>عدد كلمات الاختبار</span><span id="qCountText">40 كلمة</span></div>
+          <input type="range" id="qCountRange" min="10" max="115" step="5" value="40" oninput="updateQuestionCount(this.value)">
+        </div>
+      </div>
+
+      <div class="set-card">
+        <h3>📚 اختيار الدروس والصفحات</h3>
+        <div class="check-list">
+          <label class="check-item"><span>Lesson 1 (صفحة 106)</span><input type="checkbox" class="f-lesson" value="Lesson 1" checked onchange="onFilterChange()"></label>
+          <label class="check-item"><span>Lesson 2 (صفحة 107)</span><input type="checkbox" class="f-lesson" value="Lesson 2" checked onchange="onFilterChange()"></label>
+          <label class="check-item"><span>مرادفات وعكس وأفعال (صفحة 108)</span><input type="checkbox" class="f-lesson" value="Part 1 Extra" checked onchange="onFilterChange()"></label>
+          <label class="check-item"><span>Lesson 3 (صفحة 123)</span><input type="checkbox" class="f-lesson" value="Lesson 3" checked onchange="onFilterChange()"></label>
+          <label class="check-item"><span>مرادفات وعكس وأفعال (صفحة 124)</span><input type="checkbox" class="f-lesson" value="Part 2 Extra" checked onchange="onFilterChange()"></label>
+        </div>
+      </div>
+
+      <div class="set-card">
+        <h3>🏷️ اختيار نوع الأسئلة</h3>
+        <div class="check-list">
+          <label class="check-item"><span>الكلمات الأساسية والمفردات</span><input type="checkbox" class="f-type" value="كلمة" checked onchange="onFilterChange()"></label>
+          <label class="check-item"><span>التعبيرات اللغوية وحروف الجر</span><input type="checkbox" class="f-type" value="تعبيرات" checked onchange="onFilterChange()"></label>
+          <label class="check-item"><span>الكلمة ومرادفها وعكسها (3 كلمات)</span><input type="checkbox" class="f-type" value="كلمة ومرادف وعكس" checked onchange="onFilterChange()"></label>
+          <label class="check-item"><span>تصريفات الأفعال غير المنتظمة</span><input type="checkbox" class="f-type" value="تصريفات أفعال" checked onchange="onFilterChange()"></label>
+          <label class="check-item"><span>البادئة واللاحقة (Prefixes/Suffixes)</span><input type="checkbox" class="f-type" value="بادئة ولاحقة" checked onchange="onFilterChange()"></label>
+        </div>
+      </div>
+
+      <div class="set-card">
+        <h3>🧠 قواعد التصحيح الذكي</h3>
+        <div class="check-list">
+          <label class="check-item"><span>التصحيح الفوري عند ضغط Enter</span><input type="checkbox" id="optInstant" onchange="savePrefs()"></label>
+          <label class="check-item"><span>إظهار تلميح إضافي (أول حرفين بدل حرف)</span><input type="checkbox" id="optDoubleHint" onchange="savePrefs()"></label>
+          <label class="check-item"><span>إظهار زر النطق قبل التصحيح</span><input type="checkbox" id="optPreSpeak" onchange="savePrefs(); renderQuiz()"></label>
+          <label class="check-item"><span>تفعيل المؤقت (حساب وقت الحل)</span><input type="checkbox" id="optTimer" onchange="toggleTimerSetting()"></label>
+        </div>
+      </div>
+
+      <div class="set-card">
+        <h3>🔊 الصوت وإعادة الضبط</h3>
+        <div class="check-list" style="margin-bottom:14px;">
+          <label class="check-item"><span>المؤثرات الصوتية عند الإجابة</span><input type="checkbox" id="optSound" checked onchange="savePrefs()"></label>
+          <label class="check-item"><span>احتفالية النجاح (Confetti)</span><input type="checkbox" id="optConfetti" checked onchange="savePrefs()"></label>
+        </div>
+        <button class="btn btn-soft" style="width:100%;" onclick="resetAllSettings()">🔄 استعادة الإعدادات الافتراضية</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="view-study" class="view-section">
+    <div class="dict-toolbar">
+      <input type="text" class="search-box" id="studySearch" placeholder="🔍 ابحث عن أي كلمة بالعربي أو الإنجليزي..." oninput="renderDictionary()">
+      <select class="search-box" id="studyLessonFilter" style="flex:0 1 210px;" onchange="renderDictionary()">
+        <option value="all">كل الدروس والصفحات</option>
+        <option value="Lesson 1">Lesson 1 (ص 106)</option>
+        <option value="Lesson 2">Lesson 2 (ص 107)</option>
+        <option value="Part 1 Extra">مرادفات وأفعال (ص 108)</option>
+        <option value="Lesson 3">Lesson 3 (ص 123)</option>
+        <option value="Part 2 Extra">مرادفات وأفعال (ص 124)</option>
+      </select>
+    </div>
+    <div class="dict-grid" id="dictGrid"></div>
+  </section>
+
+</main>
+
+<script>
+const vocabDatabase = [
+  { lesson: "Lesson 1", ar: "تحدٍ", type: "كلمة", count: 1, answers: [["challenge"]], display: "challenge" },
+  { lesson: "Lesson 1", ar: "شجاعة", type: "كلمة", count: 1, answers: [["courage"]], display: "courage" },
+  { lesson: "Lesson 1", ar: "عزيمة / إصرار", type: "كلمة", count: 1, answers: [["determination"]], display: "determination" },
+  { lesson: "Lesson 1", ar: "مُحبَط / مُثبَّط", type: "كلمة", count: 1, answers: [["discouraged"]], display: "discouraged" },
+  { lesson: "Lesson 1", ar: "يواصل / يستمر", type: "كلمة", count: 1, answers: [["keep going"]], display: "keep going" },
+  { lesson: "Lesson 1", ar: "عائق / عقبة", type: "كلمة", count: 1, answers: [["obstacle"]], display: "obstacle" },
+  { lesson: "Lesson 1", ar: "خائف", type: "كلمة", count: 1, answers: [["afraid"]], display: "afraid" },
+  { lesson: "Lesson 1", ar: "خصوصًا", type: "كلمة", count: 1, answers: [["especially"]], display: "especially" },
+  { lesson: "Lesson 1", ar: "يفشل / يرسب", type: "كلمة", count: 1, answers: [["fail"]], display: "fail" },
+  { lesson: "Lesson 1", ar: "يرغب في", type: "كلمة", count: 1, answers: [["feel like"]], display: "feel like" },
+  { lesson: "Lesson 1", ar: "مستحيل", type: "كلمة", count: 1, answers: [["impossible"]], display: "impossible" },
+  { lesson: "Lesson 1", ar: "يلاحظ", type: "كلمة", count: 1, answers: [["notice"]], display: "notice" },
+  { lesson: "Lesson 1", ar: "ينجح في / يجتاز", type: "كلمة", count: 1, answers: [["pass"]], display: "pass" },
+  { lesson: "Lesson 1", ar: "ممتاز / تام", type: "كلمة", count: 1, answers: [["perfect"]], display: "perfect" },
+  { lesson: "Lesson 1", ar: "اختبار قصير / سريع", type: "كلمة", count: 1, answers: [["quiz"]], display: "quiz" },
+  { lesson: "Lesson 1", ar: "صراع / معاناة", type: "كلمة", count: 1, answers: [["struggle"]], display: "struggle" },
+  { lesson: "Lesson 1", ar: "يطلب المساعدة", type: "تعبيرات", count: 1, answers: [["ask for help"]], display: "ask for help" },
+  { lesson: "Lesson 1", ar: "في كل مرة", type: "تعبيرات", count: 1, answers: [["at a time"]], display: "at a time" },
+  { lesson: "Lesson 1", ar: "يواجه تحديًا", type: "تعبيرات", count: 1, answers: [["face a challenge"]], display: "face a challenge" },
+  { lesson: "Lesson 1", ar: "يركز على", type: "تعبيرات", count: 1, answers: [["focus on"]], display: "focus on" },
+  { lesson: "Lesson 1", ar: "يتخلى عن", type: "تعبيرات", count: 1, answers: [["give up on"]], display: "give up on" },
+  { lesson: "Lesson 1", ar: "يصنع ملصقًا", type: "تعبيرات", count: 1, answers: [["make a poster"]], display: "make a poster" },
+  { lesson: "Lesson 1", ar: "يقدم توصيات", type: "تعبيرات", count: 1, answers: [["make recommendations"]], display: "make recommendations" },
+  { lesson: "Lesson 1", ar: "يتغلب على تحدٍ", type: "تعبيرات", count: 1, answers: [["overcome a challenge"]], display: "overcome a challenge" },
+  { lesson: "Lesson 1", ar: "فخور بـ", type: "تعبيرات", count: 1, answers: [["proud of"]], display: "proud of" },
+  { lesson: "Lesson 1", ar: "يظهر عزيمة / إصرارًا", type: "تعبيرات", count: 1, answers: [["show determination"]], display: "show determination" },
+  { lesson: "Lesson 1", ar: "يكافح مع / يعاني من", type: "تعبيرات", count: 1, answers: [["struggle with"]], display: "struggle with" },
+  { lesson: "Lesson 1", ar: "يأخذه خطوة بخطوة", type: "تعبيرات", count: 1, answers: [["take it step by step"]], display: "take it step by step" },
+  { lesson: "Lesson 1", ar: "مشكلة في", type: "تعبيرات", count: 1, answers: [["trouble with"]], display: "trouble with" },
+
+  { lesson: "Lesson 2", ar: "موقف / سلوك", type: "كلمة", count: 1, answers: [["attitude"]], display: "attitude" },
+  { lesson: "Lesson 2", ar: "ينزف", type: "كلمة", count: 1, answers: [["bleed"]], display: "bleed" },
+  { lesson: "Lesson 2", ar: "مطب / نتوء", type: "كلمة", count: 1, answers: [["bump"]], display: "bump" },
+  { lesson: "Lesson 2", ar: "حشد / جمهور", type: "كلمة", count: 1, answers: [["crowd"]], display: "crowd" },
+  { lesson: "Lesson 2", ar: "يترك / يقلع عن", type: "كلمة", count: 1, answers: [["quit"]], display: "quit" },
+  { lesson: "Lesson 2", ar: "منزعج", type: "كلمة", count: 1, answers: [["upset"]], display: "upset" },
+  { lesson: "Lesson 2", ar: "يشجع / يهتف", type: "كلمة", count: 1, answers: [["cheer"]], display: "cheer" },
+  { lesson: "Lesson 2", ar: "مرتبك", type: "كلمة", count: 1, answers: [["confused"]], display: "confused" },
+  { lesson: "Lesson 2", ar: "يعبر (الطريق)", type: "كلمة", count: 1, answers: [["cross"]], display: "cross" },
+  { lesson: "Lesson 2", ar: "مصمم / عازم", type: "كلمة", count: 1, answers: [["determined"]], display: "determined" },
+  { lesson: "Lesson 2", ar: "طاقة", type: "كلمة", count: 1, answers: [["energy"]], display: "energy" },
+  { lesson: "Lesson 2", ar: "خوف", type: "كلمة", count: 1, answers: [["fear"]], display: "fear" },
+  { lesson: "Lesson 2", ar: "خط النهاية", type: "كلمة", count: 1, answers: [["finish line"]], display: "finish line" },
+  { lesson: "Lesson 2", ar: "منتصف الطريق", type: "كلمة", count: 1, answers: [["halfway"]], display: "halfway" },
+  { lesson: "Lesson 2", ar: "ركبة", type: "كلمة", count: 1, answers: [["knee"]], display: "knee" },
+  { lesson: "Lesson 2", ar: "بصوت عالٍ", type: "كلمة", count: 1, answers: [["loudly"]], display: "loudly" },
+  { lesson: "Lesson 2", ar: "ميدالية", type: "كلمة", count: 1, answers: [["medal"]], display: "medal" },
+  { lesson: "Lesson 2", ar: "متوتر / عصبي", type: "كلمة", count: 1, answers: [["nervous"]], display: "nervous" },
+  { lesson: "Lesson 2", ar: "مساعد / منظم السباق", type: "كلمة", count: 1, answers: [["race helper"]], display: "race helper" },
+  { lesson: "Lesson 2", ar: "يهز", type: "كلمة", count: 1, answers: [["shake"]], display: "shake" },
+  { lesson: "Lesson 2", ar: "خطوة", type: "كلمة", count: 1, answers: [["step"]], display: "step" },
+  { lesson: "Lesson 2", ar: "يتدرب / يدرب", type: "كلمة", count: 1, answers: [["train"]], display: "train" },
+  { lesson: "Lesson 2", ar: "من خلال / عبر", type: "كلمة", count: 1, answers: [["through"]], display: "through" },
+  { lesson: "Lesson 2", ar: "ضعيف", type: "كلمة", count: 1, answers: [["weak"]], display: "weak" },
+  { lesson: "Lesson 2", ar: "نصائح لـ", type: "تعبيرات", count: 1, answers: [["advice for"]], display: "advice for" },
+  { lesson: "Lesson 2", ar: "يفوز ضد / مقابل", type: "تعبيرات", count: 1, answers: [["win against"]], display: "win against" },
+  { lesson: "Lesson 2", ar: "على سرعة", type: "تعبيرات", count: 1, answers: [["at a speed"]], display: "at a speed" },
+  { lesson: "Lesson 2", ar: "يسقط / يقع", type: "تعبيرات", count: 1, answers: [["fall down"]], display: "fall down" },
+  { lesson: "Lesson 2", ar: "يذهب للجري", type: "تعبيرات", count: 1, answers: [["go for a run"]], display: "go for a run" },
+  { lesson: "Lesson 2", ar: "يسير بشكل جيد", type: "تعبيرات", count: 1, answers: [["go well"]], display: "go well" },
+  { lesson: "Lesson 2", ar: "في النهاية", type: "تعبيرات", count: 1, answers: [["in the end"]], display: "in the end" },
+  { lesson: "Lesson 2", ar: "يتدرب على التنفس", type: "تعبيرات", count: 1, answers: [["practice breathing"]], display: "practice breathing" },
+  { lesson: "Lesson 2", ar: "يستعد / يجهز لـ", type: "تعبيرات", count: 1, answers: [["prepare for"]], display: "prepare for" },
+  { lesson: "Lesson 2", ar: "يجري سباقًا طويلًا", type: "تعبيرات", count: 1, answers: [["run a long race"]], display: "run a long race" },
+  { lesson: "Lesson 2", ar: "يأخذ نفسًا عميقًا", type: "تعبيرات", count: 1, answers: [["take a deep breath"]], display: "take a deep breath" },
+  { lesson: "Lesson 2", ar: "يتعثر في", type: "تعبيرات", count: 1, answers: [["trip on"]], display: "trip on" },
+
+  { lesson: "Part 1 Extra", ar: "ينزف (المضارع / الماضي / التصريف الثالث)", type: "تصريفات أفعال", count: 3, answers: [["bleed"], ["bled"], ["bled"]], display: "bleed / bled / bled" },
+  { lesson: "Part 1 Extra", ar: "يقلع عن (المضارع / الماضي / التصريف الثالث)", type: "تصريفات أفعال", count: 3, answers: [["quit"], ["quit"], ["quit"]], display: "quit / quit / quit" },
+  { lesson: "Part 1 Extra", ar: "خائف (الكلمة / مرادفها / عكسها)", type: "كلمة ومرادف وعكس", count: 3, answers: [["afraid"], ["frightened"], ["brave", "fearless"]], display: "afraid / frightened / brave (or fearless)" },
+  { lesson: "Part 1 Extra", ar: "مُحبَط (الكلمة / مرادفها / عكسها)", type: "كلمة ومرادف وعكس", count: 3, answers: [["discouraged"], ["disappointed"], ["encouraged"]], display: "discouraged / disappointed / encouraged" },
+  { lesson: "Part 1 Extra", ar: "يواصل / يستمر (الكلمة / مرادفها / عكسها)", type: "كلمة ومرادف وعكس", count: 3, answers: [["keep going"], ["go on"], ["stop"]], display: "keep going / go on / stop" },
+  { lesson: "Part 1 Extra", ar: "يتغلب على (الكلمة / مرادفها / عكسها)", type: "كلمة ومرادف وعكس", count: 3, answers: [["overcome"], ["get over"], ["give up", "quit"]], display: "overcome / get over / give up (or quit)" },
+  { lesson: "Part 1 Extra", ar: "ينجح في / يجتاز (الكلمة / مرادفها / عكسها)", type: "كلمة ومرادف وعكس", count: 3, answers: [["pass"], ["succeed in", "succeed"], ["fail in", "fail"]], display: "pass / succeed in / fail (in)" },
+  { lesson: "Part 1 Extra", ar: "ممتاز / تام (الكلمة / مرادفها / عكسها)", type: "كلمة ومرادف وعكس", count: 3, answers: [["perfect"], ["excellent"], ["imperfect"]], display: "perfect / excellent / imperfect" },
+  { lesson: "Part 1 Extra", ar: "منزعج (الكلمة / مرادفها / عكسها)", type: "كلمة ومرادف وعكس", count: 3, answers: [["upset"], ["annoyed"], ["pleased", "glad"]], display: "upset / annoyed / pleased (or glad)" },
+  { lesson: "Part 1 Extra", ar: "يعقد العزم / عزيمة (الكلمة / الكلمة الجديدة)", type: "بادئة ولاحقة", count: 2, answers: [["determine"], ["determination"]], display: "determine / determination" },
+  { lesson: "Part 1 Extra", ar: "يوصي بـ / توصية (الكلمة / الكلمة الجديدة)", type: "بادئة ولاحقة", count: 2, answers: [["recommend"], ["recommendation"]], display: "recommend / recommendation" },
+  { lesson: "Part 1 Extra", ar: "يساعد / مساعد (الكلمة / الكلمة الجديدة)", type: "بادئة ولاحقة", count: 2, answers: [["help"], ["helper"]], display: "help / helper" },
+  { lesson: "Part 1 Extra", ar: "ممكن / مستحيل (الكلمة / الكلمة الجديدة)", type: "بادئة ولاحقة", count: 2, answers: [["possible"], ["impossible"]], display: "possible / impossible" },
+  { lesson: "Part 1 Extra", ar: "عالي الصوت / بصوت عالٍ (الكلمة / الكلمة الجديدة)", type: "بادئة ولاحقة", count: 2, answers: [["loud"], ["loudly"]], display: "loud / loudly" },
+
+  { lesson: "Lesson 3", ar: "كوبري علوي", type: "كلمة", count: 1, answers: [["flyover"]], display: "flyover" },
+  { lesson: "Lesson 3", ar: "قطار أحادي السكة / مونوريل", type: "كلمة", count: 1, answers: [["monorail"]], display: "monorail" },
+  { lesson: "Lesson 3", ar: "يتجول / يتنقل", type: "كلمة", count: 1, answers: [["move around"]], display: "move around" },
+  { lesson: "Lesson 3", ar: "مضغوط / مجهد", type: "كلمة", count: 1, answers: [["stressed"]], display: "stressed" },
+  { lesson: "Lesson 3", ar: "ازدحام مروري", type: "كلمة", count: 1, answers: [["traffic jam"]], display: "traffic jam" },
+  { lesson: "Lesson 3", ar: "نفق", type: "كلمة", count: 1, answers: [["tunnel"]], display: "tunnel" },
+  { lesson: "Lesson 3", ar: "مغلق", type: "كلمة", count: 1, answers: [["blocked"]], display: "blocked" },
+  { lesson: "Lesson 3", ar: "مزدحم / مشغول", type: "كلمة", count: 1, answers: [["busy"]], display: "busy" },
+  { lesson: "Lesson 3", ar: "يسبب", type: "كلمة", count: 1, answers: [["cause"]], display: "cause" },
+  { lesson: "Lesson 3", ar: "كهربائي (يُدار بالكهرباء)", type: "كلمة", count: 1, answers: [["electric"]], display: "electric" },
+  { lesson: "Lesson 3", ar: "طريق سريع", type: "كلمة", count: 1, answers: [["highway"]], display: "highway" },
+  { lesson: "Lesson 3", ar: "خط", type: "كلمة", count: 1, answers: [["line"]], display: "line" },
+  { lesson: "Lesson 3", ar: "يخطط / خطة", type: "كلمة", count: 1, answers: [["plan"]], display: "plan" },
+  { lesson: "Lesson 3", ar: "تلوث", type: "كلمة", count: 1, answers: [["pollution"]], display: "pollution" },
+  { lesson: "Lesson 3", ar: "مشروع", type: "كلمة", count: 1, answers: [["project"]], display: "project" },
+  { lesson: "Lesson 3", ar: "وسائل المواصلات العامة", type: "كلمة", count: 1, answers: [["public transportation"]], display: "public transportation" },
+  { lesson: "Lesson 3", ar: "يقلل", type: "كلمة", count: 1, answers: [["reduce"]], display: "reduce" },
+  { lesson: "Lesson 3", ar: "حركة المرور / مرور", type: "كلمة", count: 1, answers: [["traffic"]], display: "traffic" },
+  { lesson: "Lesson 3", ar: "ينتظر", type: "كلمة", count: 1, answers: [["wait"]], display: "wait" },
+  { lesson: "Lesson 3", ar: "يبني طرقًا / كباري", type: "تعبيرات", count: 1, answers: [["build roads/bridges", "build roads / bridges", "build roads", "build bridges"]], display: "build roads/bridges" },
+  { lesson: "Lesson 3", ar: "يُغلق / يُسد / يُحجز", type: "تعبيرات", count: 1, answers: [["get blocked"]], display: "get blocked" },
+  { lesson: "Lesson 3", ar: "يعلق / يتعطل", type: "تعبيرات", count: 1, answers: [["get stuck"]], display: "get stuck" },
+  { lesson: "Lesson 3", ar: "يمر عبر", type: "تعبيرات", count: 1, answers: [["go through"]], display: "go through" },
+  { lesson: "Lesson 3", ar: "في المستقبل", type: "تعبيرات", count: 1, answers: [["in the future"]], display: "in the future" },
+  { lesson: "Lesson 3", ar: "متأخر عن", type: "تعبيرات", count: 1, answers: [["late for"]], display: "late for" },
+  { lesson: "Lesson 3", ar: "يبني كوبري علويًا / نفقًا", type: "تعبيرات", count: 1, answers: [["make a flyover/tunnel", "make a flyover / tunnel", "make a flyover", "make a tunnel"]], display: "make a flyover/tunnel" },
+  { lesson: "Lesson 3", ar: "في الشوارع / الطرق السريعة", type: "تعبيرات", count: 1, answers: [["on streets/highways", "on streets / highways", "on streets", "on highways"]], display: "on streets/highways" },
+  { lesson: "Lesson 3", ar: "يمر فوق", type: "تعبيرات", count: 1, answers: [["pass over"]], display: "pass over" },
+  { lesson: "Lesson 3", ar: "يسير على", type: "تعبيرات", count: 1, answers: [["run on"]], display: "run on" },
+
+  { lesson: "Part 2 Extra", ar: "يبني (المضارع / الماضي / التصريف الثالث)", type: "تصريفات أفعال", count: 3, answers: [["build"], ["built"], ["built"]], display: "build / built / built" },
+  { lesson: "Part 2 Extra", ar: "يقود / يسوق (المضارع / الماضي / التصريف الثالث)", type: "تصريفات أفعال", count: 3, answers: [["drive"], ["drove"], ["driven"]], display: "drive / drove / driven" },
+  { lesson: "Part 2 Extra", ar: "يصنع (المضارع / الماضي / التصريف الثالث)", type: "تصريفات أفعال", count: 3, answers: [["make"], ["made"], ["made"]], display: "make / made / made" },
+  { lesson: "Part 2 Extra", ar: "يبيع (المضارع / الماضي / التصريف الثالث)", type: "تصريفات أفعال", count: 3, answers: [["sell"], ["sold"], ["sold"]], display: "sell / sold / sold" },
+  { lesson: "Part 2 Extra", ar: "مغلق / مسدود (الكلمة / مرادفها / عكسها)", type: "كلمة ومرادف وعكس", count: 3, answers: [["blocked"], ["closed"], ["open"]], display: "blocked / closed / open" },
+  { lesson: "Part 2 Extra", ar: "مزدحم / مشغول (الكلمة / مرادفها / عكسها)", type: "كلمة ومرادف وعكس", count: 3, answers: [["busy"], ["crowded"], ["empty"]], display: "busy / crowded / empty" },
+  { lesson: "Part 2 Extra", ar: "سبب (الكلمة / مرادفها / عكسها)", type: "كلمة ومرادف وعكس", count: 3, answers: [["cause"], ["reason"], ["result", "effect"]], display: "cause / reason / result (or effect)" },
+  { lesson: "Part 2 Extra", ar: "عام (الكلمة / مرادفها / عكسها)", type: "كلمة ومرادف وعكس", count: 3, answers: [["public"], ["general", "shared"], ["private", "personal"]], display: "public / general (or shared) / private (or personal)" },
+  { lesson: "Part 2 Extra", ar: "مضغوط / مجهد (الكلمة / مرادفها / عكسها)", type: "كلمة ومرادف وعكس", count: 3, answers: [["stressed"], ["worried", "nervous"], ["relaxed"]], display: "stressed / worried (or nervous) / relaxed" },
+  { lesson: "Part 2 Extra", ar: "يلوث / تلوث (الكلمة / الكلمة الجديدة)", type: "بادئة ولاحقة", count: 2, answers: [["pollute"], ["pollution"]], display: "pollute / pollution" },
+  { lesson: "Part 2 Extra", ar: "يضغط / ضغط (الكلمة / الكلمة الجديدة)", type: "بادئة ولاحقة", count: 2, answers: [["press"], ["pressure"]], display: "press / pressure" },
+  { lesson: "Part 2 Extra", ar: "سكة أو قضيب حديد / قطار أحادي السكة (الكلمة / الكلمة الجديدة)", type: "بادئة ولاحقة", count: 2, answers: [["rail"], ["monorail"]], display: "rail / monorail" }
+];
+
+let currentQuestions = [];
+let userInputs = [];
+let gradedStatus = [];
+let wrongPool = [];
+let displayMode = 'list';
+let focusIndex = 0;
+let timerHandle = null;
+let elapsedSec = 0;
+
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function beep(type) {
+  if (!document.getElementById('optSound').checked) return;
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const t = audioCtx.currentTime;
+  const o = audioCtx.createOscillator();
+  const g = audioCtx.createGain();
+  o.connect(g); g.connect(audioCtx.destination);
+  if (type === 'ok') {
+    o.type = 'sine';
+    o.frequency.setValueAtTime(580, t);
+    o.frequency.exponentialRampToValueAtTime(880, t + 0.12);
+    g.gain.setValueAtTime(0.14, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+    o.start(t); o.stop(t + 0.23);
+  } else if (type === 'err') {
+    o.type = 'triangle';
+    o.frequency.setValueAtTime(220, t);
+    o.frequency.linearRampToValueAtTime(150, t + 0.18);
+    g.gain.setValueAtTime(0.12, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + 0.22);
+    o.start(t); o.stop(t + 0.23);
+  } else if (type === 'win') {
+    [523, 659, 784, 1046].forEach((f, idx) => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain); gain.connect(audioCtx.destination);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(f, t + idx * 0.09);
+      gain.gain.setValueAtTime(0.14, t + idx * 0.09);
+      gain.gain.exponentialRampToValueAtTime(0.001, t + idx * 0.09 + 0.3);
+      osc.start(t + idx * 0.09); osc.stop(t + idx * 0.09 + 0.31);
+    });
+  }
+}
+
+function speakWord(txt) {
+  if (!('speechSynthesis' in window)) return;
+  const clean = txt.replace(/\(.*?\)/g, '').replace(/\//g, ', ');
+  const u = new SpeechSynthesisUtterance(clean);
+  u.lang = 'en-US';
+  u.rate = 0.9;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function switchTab(tabName) {
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+  document.getElementById(`tab-${tabName}`).classList.add('active');
+  document.getElementById(`view-${tabName}`).classList.add('active');
+  if (tabName === 'study') renderDictionary();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function applyTheme(theme, el) {
+  document.documentElement.setAttribute('data-theme', theme === 'default' ? '' : theme);
+  document.querySelectorAll('.theme-option').forEach(o => o.classList.remove('active'));
+  if (el) el.classList.add('active');
+  savePrefs();
+}
+
+function updateFontSize(val) {
+  document.documentElement.style.setProperty('--font-scale', val);
+  document.getElementById('fontScaleText').textContent = Math.round(val * 100) + '%';
+  savePrefs();
+}
+
+function setDisplayMode(mode) {
+  displayMode = mode;
+  document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`mode-${mode}`).classList.add('active');
+  savePrefs();
+  renderQuiz();
+}
+
+function updateQuestionCount(val) {
+  const num = parseInt(val, 10);
+  document.getElementById('qCountText').textContent = num >= 115 ? 'كل الكلمات' : `${num} كلمة`;
+  savePrefs();
+  startNewQuiz();
+}
+
+function toggleTimerSetting() {
+  const active = document.getElementById('optTimer').checked;
+  const badge = document.getElementById('timerBadge');
+  clearInterval(timerHandle);
+  if (active) {
+    badge.style.display = 'flex';
+    startTimer();
+  } else {
+    badge.style.display = 'none';
+  }
+  savePrefs();
+}
+
+function startTimer() {
+  clearInterval(timerHandle);
+  elapsedSec = 0;
+  renderTimer();
+  timerHandle = setInterval(() => {
+    elapsedSec++;
+    renderTimer();
+  }, 1000);
+}
+
+function renderTimer() {
+  const m = String(Math.floor(elapsedSec / 60)).padStart(2, '0');
+  const s = String(elapsedSec % 60).padStart(2, '0');
+  document.getElementById('timerText').textContent = `${m}:${s}`;
+}
+
+function savePrefs() {
+  try {
+    const prefs = {
+      theme: document.documentElement.getAttribute('data-theme') || 'default',
+      font: document.getElementById('fontRange').value,
+      mode: displayMode,
+      qCount: document.getElementById('qCountRange').value,
+      instant: document.getElementById('optInstant').checked,
+      doubleHint: document.getElementById('optDoubleHint').checked,
+      preSpeak: document.getElementById('optPreSpeak').checked,
+      timer: document.getElementById('optTimer').checked,
+      sound: document.getElementById('optSound').checked,
+      confetti: document.getElementById('optConfetti').checked
+    };
+    localStorage.setItem('u3_ultra_prefs', JSON.stringify(prefs));
+  } catch (e) {}
+}
+
+function loadPrefs() {
+  try {
+    const raw = localStorage.getItem('u3_ultra_prefs');
+    if (!raw) return;
+    const p = JSON.parse(raw);
+    if (p.theme) {
+      const el = document.querySelector(`.theme-option[data-t="${p.theme}"]`);
+      applyTheme(p.theme, el);
+    }
+    if (p.font) {
+      document.getElementById('fontRange').value = p.font;
+      updateFontSize(p.font);
+    }
+    if (p.mode) {
+      displayMode = p.mode;
+      document.querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
+      const btn = document.getElementById(`mode-${p.mode}`);
+      if (btn) btn.classList.add('active');
+    }
+    if (p.qCount) {
+      document.getElementById('qCountRange').value = p.qCount;
+      document.getElementById('qCountText').textContent = parseInt(p.qCount, 10) >= 115 ? 'كل الكلمات' : `${p.qCount} كلمة`;
+    }
+    document.getElementById('optInstant').checked = !!p.instant;
+    document.getElementById('optDoubleHint').checked = !!p.doubleHint;
+    document.getElementById('optPreSpeak').checked = !!p.preSpeak;
+    document.getElementById('optTimer').checked = !!p.timer;
+    document.getElementById('optSound').checked = p.sound !== false;
+    document.getElementById('optConfetti').checked = p.confetti !== false;
+    if (p.timer) toggleTimerSetting();
+  } catch (e) {}
+}
+
+function resetAllSettings() {
+  localStorage.removeItem('u3_ultra_prefs');
+  document.querySelectorAll('.f-lesson, .f-type').forEach(c => c.checked = true);
+  applyTheme('default', document.querySelector('.theme-option[data-t="default"]'));
+  document.getElementById('fontRange').value = 1;
+  updateFontSize(1);
+  document.getElementById('qCountRange').value = 40;
+  updateQuestionCount(40);
+  setDisplayMode('list');
+  document.getElementById('optInstant').checked = false;
+  document.getElementById('optDoubleHint').checked = false;
+  document.getElementById('optPreSpeak').checked = false;
+  document.getElementById('optTimer').checked = false;
+  toggleTimerSetting();
+  document.getElementById('optSound').checked = true;
+  document.getElementById('optConfetti').checked = true;
+}
+
+function getFilteredItems() {
+  const lessons = Array.from(document.querySelectorAll('.f-lesson:checked')).map(c => c.value);
+  const types = Array.from(document.querySelectorAll('.f-type:checked')).map(c => c.value);
+  return vocabDatabase.filter(item => lessons.includes(item.lesson) && types.includes(item.type));
+}
+
+function onFilterChange() {
+  startNewQuiz();
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function cleanStr(s) {
+  return s.toLowerCase().trim().replace(/\s+/g, ' ');
+}
+
+function startNewQuiz(customArray = null) {
+  const filtered = getFilteredItems();
+  document.getElementById('availableCount').textContent = filtered.length;
+  document.getElementById('resultPanel').classList.remove('visible');
+  document.getElementById('btnRetryErrors').style.display = 'none';
+
+  const source = customArray || filtered;
+  const maxQ = parseInt(document.getElementById('qCountRange').value, 10);
+  const count = customArray ? customArray.length : (maxQ >= 115 ? source.length : Math.min(maxQ, source.length));
+
+  currentQuestions = shuffle(source).slice(0, count);
+  userInputs = new Array(currentQuestions.length).fill('');
+  gradedStatus = new Array(currentQuestions.length).fill(null);
+  focusIndex = 0;
+
+  if (document.getElementById('optTimer').checked) startTimer();
+  renderQuiz();
+  updateProgressUI();
+}
+
+function buildQuestionCardHTML(item, idx) {
+  const reqText = item.count === 1 ? "مطلوب: كلمة واحدة" : `مطلوب: ${item.count} كلمات (افصل بـ /)`;
+  const ph = item.count === 1 ? "Write English here..." : Array(item.count).fill("word").join(" / ");
+  const safeDisp = item.display.replace(/'/g, "\\'");
+  const preSpeak = document.getElementById('optPreSpeak').checked;
+  const status = gradedStatus[idx];
+  const stateClass = status === true ? 'is-correct' : (status === false ? 'is-wrong' : '');
+
+  let resHTML = '';
+  if (status === true) {
+    resHTML = `<div class="q-result visible ok"><span>✔ إجابة صحيحة! <span class="ans-pill">${item.display}</span></span><button class="btn btn-soft" style="padding:4px 10px;font-size:0.85em;" onclick="speakWord('${safeDisp}')">🔊 نطق</button></div>`;
+  } else if (status === false) {
+    resHTML = `<div class="q-result visible err"><span>✖ الصحيح: <span class="ans-pill">${item.display}</span></span><button class="btn btn-soft" style="padding:4px 10px;font-size:0.85em;" onclick="speakWord('${safeDisp}')">🔊 نطق</button></div>`;
+  } else {
+    resHTML = `<div class="q-result" id="res-${idx}"></div>`;
+  }
+
+  return `
+    <div class="q-card ${stateClass}" id="qcard-${idx}">
+      <div class="q-top">
+        <div class="q-badges">
+          <span class="badge-num">#${idx + 1}</span>
+          <span class="badge-meta">${item.lesson}</span>
+          <span class="badge-meta">${item.type}</span>
+        </div>
+        <span class="badge-req">✏️ ${reqText}</span>
+      </div>
+      <div class="q-arabic">${item.ar}</div>
+      <div class="q-input-group">
+        <input type="text" class="q-input" id="inp-${idx}" value="${userInputs[idx].replace(/"/g, '&quot;')}" placeholder="${ph}" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" oninput="onInputUpdate(${idx}, this.value)" onkeydown="onInputKey(event, ${idx})">
+        <button class="tool-icon" title="تلميح" onclick="revealHint(${idx})">💡</button>
+        ${preSpeak ? `<button class="tool-icon" title="استماع للنطق" onclick="speakWord('${safeDisp}')">🔊</button>` : ''}
+      </div>
+      <div class="q-hint" id="hint-${idx}"></div>
+      ${resHTML}
+    </div>
+  `;
+}
+
+function renderQuiz() {
+  const container = document.getElementById('quizContainer');
+  container.className = 'quiz-grid';
+
+  if (currentQuestions.length === 0) {
+    container.innerHTML = `<div class="q-card" style="text-align:center; padding:30px;">⚠️ لا توجد أسئلة! اذهب إلى <strong>الإعدادات والتخصيص</strong> واختر درسًا ونوعًا واحدًا على الأقل.</div>`;
+    return;
+  }
+
+  if (displayMode === 'focus') {
+    const item = currentQuestions[focusIndex];
+    container.innerHTML = `
+      <div class="focus-box">
+        <div style="font-weight:800; color:var(--primary); margin-bottom:12px;">السؤال ${focusIndex + 1} من ${currentQuestions.length}</div>
+        ${buildQuestionCardHTML(item, focusIndex)}
+        <div class="focus-nav">
+          <button class="btn btn-soft" ${focusIndex === 0 ? 'disabled style="opacity:0.4;"' : ''} onclick="moveFocus(-1)">➡️ السابق</button>
+          <button class="btn btn-primary" ${focusIndex === currentQuestions.length - 1 ? 'disabled style="opacity:0.4;"' : ''} onclick="moveFocus(1)">التالي ⬅️</button>
+        </div>
+      </div>
+    `;
+    setTimeout(() => {
+      const inp = document.getElementById(`inp-${focusIndex}`);
+      if (inp) inp.focus();
+    }, 50);
+  } else {
+    if (displayMode === 'grid') container.classList.add('two-cols');
+    container.innerHTML = currentQuestions.map((item, idx) => buildQuestionCardHTML(item, idx)).join('');
+  }
+}
+
+function moveFocus(step) {
+  const next = focusIndex + step;
+  if (next >= 0 && next < currentQuestions.length) {
+    focusIndex = next;
+    renderQuiz();
+  }
+}
+
+function onInputUpdate(idx, val) {
+  userInputs[idx] = val;
+  updateProgressUI();
+}
+
+function onInputKey(e, idx) {
+  if (e.key === 'Enter') {
+    if (document.getElementById('optInstant').checked) {
+      const ok = evaluateIndex(idx);
+      beep(ok ? 'ok' : 'err');
+      if (displayMode === 'focus') renderQuiz();
+    }
+    if (displayMode === 'focus') {
+      if (focusIndex < currentQuestions.length - 1) moveFocus(1);
+    } else {
+      const nextEl = document.getElementById(`inp-${idx + 1}`);
+      if (nextEl) nextEl.focus();
+    }
+  }
+}
+
+function revealHint(idx) {
+  const item = currentQuestions[idx];
+  const hintEl = document.getElementById(`hint-${idx}`);
+  const chars = document.getElementById('optDoubleHint').checked ? 2 : 1;
+  const parts = item.answers.map(slot => {
+    const w = slot[0];
+    const shown = w.slice(0, Math.min(chars, w.length));
+    return shown + '_'.repeat(Math.max(2, w.length - shown.length));
+  });
+  hintEl.textContent = `Hint: ${parts.join(' / ')}`;
+  hintEl.classList.add('visible');
+}
+
+function updateProgressUI() {
+  const total = currentQuestions.length;
+  const done = userInputs.filter(v => v.trim().length > 0).length;
+  document.getElementById('progressLabel').textContent = `${done} من ${total}`;
+  const pct = total === 0 ? 0 : Math.round((done / total) * 100);
+  document.getElementById('progressFill').style.width = `${pct}%`;
+}
+
+function verifyAnswer(raw, item) {
+  const c = cleanStr(raw);
+  if (!c) return false;
+  if (item.count === 1) {
+    return item.answers[0].map(cleanStr).includes(c);
+  }
+  const parts = raw.split('/').map(cleanStr).filter(Boolean);
+  if (parts.length !== item.count) return false;
+  for (let i = 0; i < item.count; i++) {
+    if (!item.answers[i].map(cleanStr).includes(parts[i])) return false;
+  }
+  return true;
+}
+
+function evaluateIndex(idx) {
+  const item = currentQuestions[idx];
+  const ok = verifyAnswer(userInputs[idx], item);
+  gradedStatus[idx] = ok;
+
+  const card = document.getElementById(`qcard-${idx}`);
+  const res = document.getElementById(`res-${idx}`);
+  const safeDisp = item.display.replace(/'/g, "\\'");
+
+  if (card && res) {
+    card.classList.remove('is-correct', 'is-wrong');
+    card.classList.add(ok ? 'is-correct' : 'is-wrong');
+    res.className = `q-result visible ${ok ? 'ok' : 'err'}`;
+    res.innerHTML = ok
+      ? `<span>✔ إجابة صحيحة! <span class="ans-pill">${item.display}</span></span><button class="btn btn-soft" style="padding:4px 10px;font-size:0.85em;" onclick="speakWord('${safeDisp}')">🔊 نطق</button>`
+      : `<span>✖ الصحيح: <span class="ans-pill">${item.display}</span></span><button class="btn btn-soft" style="padding:4px 10px;font-size:0.85em;" onclick="speakWord('${safeDisp}')">🔊 نطق</button>`;
+  }
+  return ok;
+}
+
+function submitAllAnswers() {
+  if (currentQuestions.length === 0) return;
+  clearInterval(timerHandle);
+
+  let correctCount = 0;
+  wrongPool = [];
+  currentQuestions.forEach((item, idx) => {
+    if (evaluateIndex(idx)) correctCount++;
+    else wrongPool.push(item);
+  });
+
+  if (displayMode === 'focus') renderQuiz();
+
+  const total = currentQuestions.length;
+  const pct = Math.round((correctCount / total) * 100);
+  document.getElementById('finalPct').textContent = `${pct}%`;
+  document.getElementById('finalHeading').textContent = `نتيجتك: ${correctCount} من ${total}`;
+
+  const desc = document.getElementById('finalDesc');
+  if (pct >= 85) {
+    desc.textContent = "ممتاز يا بطل! مستوى خرافي في الوحدة الثالثة 🏆🔥";
+    beep('win');
+    if (document.getElementById('optConfetti').checked) fireConfetti();
+  } else if (pct >= 65) {
+    desc.textContent = "شاطر جدًا! جرب زر (إعادة اختبار أخطائي فقط) عشان تقفل 100% 💪";
+    beep('ok');
+  } else {
+    desc.textContent = "راجع الكلمات الحمراء واضغط (إعادة اختبار أخطائي فقط) للتدريب 🌟";
+    beep('err');
+  }
+
+  document.getElementById('resultPanel').classList.add('visible');
+  const retryBtn = document.getElementById('btnRetryErrors');
+  if (wrongPool.length > 0) {
+    retryBtn.style.display = 'inline-flex';
+    retryBtn.textContent = `🔁 إعادة اختبار أخطائي فقط (${wrongPool.length})`;
+  } else {
+    retryBtn.style.display = 'none';
+  }
+  document.getElementById('resultPanel').scrollIntoView({ behavior: 'smooth' });
+}
+
+function startErrorOnlyQuiz() {
+  if (wrongPool.length > 0) {
+    startNewQuiz([...wrongPool]);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function renderDictionary() {
+  const q = cleanStr(document.getElementById('studySearch').value);
+  const lessonFilter = document.getElementById('studyLessonFilter').value;
+  const grid = document.getElementById('dictGrid');
+
+  const items = vocabDatabase.filter(item => {
+    const matchLesson = lessonFilter === 'all' || item.lesson === lessonFilter;
+    const matchQuery = !q || item.ar.includes(q) || item.display.toLowerCase().includes(q);
+    return matchLesson && matchQuery;
+  });
+
+  grid.innerHTML = items.map(item => {
+    const safeDisp = item.display.replace(/'/g, "\\'");
+    return `
+      <div class="dict-card">
+        <div>
+          <div style="font-size:0.75em; color:var(--text-sub); font-weight:800; margin-bottom:4px;">${item.lesson} • ${item.type}</div>
+          <div style="font-weight:900; font-size:1.05em;">${item.ar}</div>
+        </div>
+        <div class="dict-eng-row">
+          <span>${item.display}</span>
+          <button class="btn btn-soft" style="padding:4px 10px; font-size:0.82em;" onclick="speakWord('${safeDisp}')">🔊</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function fireConfetti() {
+  const canvas = document.getElementById('confettiCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const palette = ['#4f46e5', '#db2777', '#10b981', '#f59e0b', '#0284c7'];
+  const dots = Array.from({ length: 120 }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * -canvas.height,
+    s: Math.random() * 7 + 4,
+    c: palette[Math.floor(Math.random() * palette.length)],
+    vx: Math.random() * 4 - 2,
+    vy: Math.random() * 4 + 3,
+    a: Math.random() * 360
+  }));
+  let step = 0;
+  function loop() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    dots.forEach(d => {
+      d.x += d.vx; d.y += d.vy; d.a += 6;
+      ctx.save();
+      ctx.translate(d.x, d.y);
+      ctx.rotate(d.a * Math.PI / 180);
+      ctx.fillStyle = d.c;
+      ctx.fillRect(-d.s / 2, -d.s / 2, d.s, d.s * 0.6);
+      ctx.restore();
+    });
+    step++;
+    if (step < 150) requestAnimationFrame(loop);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+  loop();
+}
+
+loadPrefs();
+startNewQuiz();
+</script>
+</body>
+</html>
+"""
+
+with open("unit3_vocab_ultra_pro.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("Generated unit3_vocab_ultra_pro.html")
+
